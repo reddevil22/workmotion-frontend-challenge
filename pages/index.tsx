@@ -1,9 +1,29 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
+import { useEffect, useState } from 'react'
 import styles from '../styles/Home.module.css'
+import { Employees } from './api/employees'
+import { Wizard } from './components/Wizard'
 
 const Home: NextPage = () => {
+
+  const [employees, setEmployees] = useState<Employees[]>([])
+
+  useEffect(() => {
+    async function getData() {
+      const response = await fetch(
+        `/api/employees`
+      )
+      let actualData = await response.json();
+
+      console.log(actualData)
+      setEmployees(actualData.employees)
+    }
+    getData()
+  }, [])
+
+
   return (
     <div className={styles.container}>
       <Head>
@@ -18,8 +38,14 @@ const Home: NextPage = () => {
         </h1>
 
         <div className={styles.grid}>
-          <div>
-            Hello world
+          { /* employees.length !== 0 && employees.map(employee => {
+            return <div className="card">
+              <h2>{employee.name}</h2>
+              <p>{employee.status}</p>
+            </div>
+          }) */ }
+          <div className="card">
+            <Wizard employees={employees} />
           </div>
         </div>
       </main>
