@@ -109,28 +109,27 @@
   margin-left: 0;
 }
 
-.wizard .current,
-.wizard a.progress-current {
-  background: #363636;
+a.current {
+  background: #3e95d6;
   color: #fff;
 }
 
 .wizard a.current:after,
 .wizard a.progress-current:after {
-  border-left-color: #363636 !important;
+  border-left-color: #3e95d6 !important;
 }
 
 .wizard.left-arrow a.current:before,
 .wizard.left-arrow a.progress-current:before,
 .wizard.small.left-arrow a.current:before,
 .wizard.small.left-arrow a.progress-current:before {
-  border-right-color: #363636;
+  border-right-color: #3e95d6;
 }
 
 .wizard a.current .badge,
 .wizard a.progress-current .badge {
   background-color: #ffffff;
-  color: #363636;
+  color: #3e95d6;
 }
 
 .wizard.small {

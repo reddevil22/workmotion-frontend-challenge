@@ -16,12 +16,22 @@ const Home: NextPage = () => {
         `/api/employees`
       )
       let actualData = await response.json();
-
-      console.log(actualData)
       setEmployees(actualData.employees)
     }
     getData()
   }, [])
+
+  //@ts-ignore
+  const onClick = async (e, employeeToUpdate) => {
+    const data = await fetch(`/api/employees/${employeeToUpdate.id}`, {
+      method: 'PATCH',
+      body: JSON.stringify({
+        status: e.target.text
+      })
+    })
+    let response = await data.json();
+    setEmployees(response.employees)
+  }
 
 
   return (
@@ -38,30 +48,11 @@ const Home: NextPage = () => {
         </h1>
 
         <div className={styles.grid}>
-          { /* employees.length !== 0 && employees.map(employee => {
-            return <div className="card">
-              <h2>{employee.name}</h2>
-              <p>{employee.status}</p>
-            </div>
-          }) */ }
           <div className="card">
-            <Wizard employees={employees} />
+            <Wizard employees={employees} onClick={onClick} />
           </div>
         </div>
       </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
-      </footer>
     </div>
   )
 }
